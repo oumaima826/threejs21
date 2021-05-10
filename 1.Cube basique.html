@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Three.js welcome!</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <h1 align="center">CUBE</h1>
+    <script src="js/three.min.js"></script>
+    <script>
+        var renderer, scene, camera, cube;
+
+        function init() {
+
+            scene = new THREE.Scene();
+
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+            renderer = new THREE.WebGLRenderer();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+
+            //crate the shape (forme)
+            var geometry = new THREE.BoxGeometry(1, 1, 1);
+
+            //create a material,colour or img texture
+            
+            var material = new THREE.MeshBasicMaterial({
+                color: 0x10FFFF,
+               // wireframe: true
+            });
+            /*
+            
+            var material = new THREE.MeshBasicMaterial({
+                color: color,
+                wireframe: true
+            });
+            
+            */
+            
+
+            //afficher les axes: x::red , y::green
+            var axisHelper = new THREE.AxisHelper(5);
+            scene.add(axisHelper);
+
+            cube = new THREE.Mesh(geometry, material);
+            scene.add(cube);
+
+
+            //ZOOM + - 
+            camera.position.z = 3;
+
+        }
+
+
+        //game logic
+        var update = function() {
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.005;
+        };
+
+        function render() {
+            requestAnimationFrame(render);
+            //draw Scene
+            renderer.render(scene, camera);
+            update();
+        }
+
+        init();
+        render();
+
+    </script>
+
+</body>
+
+</html>
